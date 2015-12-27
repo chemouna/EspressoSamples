@@ -10,6 +10,8 @@ android {
     targetSdkVersion 23
     versionCode 1
     versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
   }
   buildTypes {
     release {
@@ -17,10 +19,46 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+
+  packagingOptions {
+    exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
+    exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
+  }
 }
 
 dependencies {
-  compile fileTree(dir: 'libs', include: ['*.jar'])
-  testCompile 'junit:junit:4.12'
-  compile 'com.android.support:appcompat-v7:23.1.1'
+
+  compile rootProject.ext.supportAppcompat
+  compile rootProject.ext.supportRecyclerview
+
+  androidTestCompile rootProject.ext.truth
+  androidTestCompile rootProject.ext.mockitoCore
+
+  androidTestCompile rootProject.ext.dexmaker
+  androidTestCompile rootProject.ext.dexmakerMockito
+
+  androidTestCompile rootProject.ext.spoonClient
+  androidTestCompile(rootProject.ext.espressoCore) {
+    exclude module: 'support-annotations'
+  }
+  androidTestCompile(rootProject.ext.espressoIntents) {
+    exclude module: 'support-annotations'
+  }
+  androidTestCompile(rootProject.ext.espressoContrib) {
+    exclude group: 'com.android.support', module: 'appcompat'
+    exclude group: 'com.android.support', module: 'support-v4'
+    exclude module: 'recyclerview-v7'
+    exclude module: 'support-annotations'
+  }
+
+  androidTestCompile(rootProject.ext.testRunner) {
+    exclude module: 'support-annotations'
+  }
+  androidTestCompile(rootProject.ext.testRules) {
+    exclude module: 'support-annotations'
+  }
+
+  androidTestCompile rootProject.ext.junit
+  androidTestCompile rootProject.ext.festAssertCore
+
 }

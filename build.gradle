@@ -1,23 +1,32 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: rootProject.file('dependencies.gradle')
 
-buildscript {
+subprojects {
+
+  buildscript {
+    repositories {
+      maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+      mavenCentral()
+      jcenter()
+      maven { url "https://jitpack.io" }
+      maven { url "https://plugins.gradle.org/m2/" }
+      maven { url "http://dl.bintray.com/tbruyelle/tbruyelle" }
+    }
+
+    dependencies {
+      classpath rootProject.ext.androidPlugin
+    }
+  }
+
   repositories {
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    mavenCentral()
     jcenter()
+    maven { url "https://jitpack.io" }
+    maven { url "https://plugins.gradle.org/m2/" }
+    maven { url "http://dl.bintray.com/tbruyelle/tbruyelle" }
   }
-  dependencies {
-    classpath 'com.android.tools.build:gradle:2.0.0-alpha3'
 
-    // NOTE: Do not place your application dependencies here; they belong
-    // in the individual module build.gradle files
-  }
 }
 
-allprojects {
-  repositories {
-    jcenter()
-  }
-}
 
-task clean(type: Delete) {
-  delete rootProject.buildDir
-}
+
